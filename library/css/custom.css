@@ -1,0 +1,68 @@
+/* Custom CSS file created by Ankita Gupta */
+.header{
+    background: #343c47;
+    padding: 30px 30px 0px 30px;
+}
+.nav{
+	background:#e7e9eb; 
+}
+.nav-item{
+	margin: 15px 25px 15px 25px;
+    
+}
+.nav-home{
+	margin: 15px 25px 15px 0px;
+}
+.filter-box{
+	background: #f6f7f8;
+    border: 1px solid #ddd;
+    padding: 10px 15px 5px;
+    height: 45px;
+	margin-top:20px;
+}
+.resultheading-box{
+	background: #f6f7f8;
+    border: 1px 1px 0px 1px solid #ddd;
+    padding: 10px 15px 5px;
+    height: 45px;
+	
+}
+.paginationheading{
+margin-bottom:25px; margin-top:25px;
+}
+.paginationli{
+float: left;
+    padding: 3px 6px 3px 6px;
+    border: 1px #ddd solid;
+margin-right:5px;
+}
+.result-box{
+	
+    border: 1px solid #ddd;
+    
+    margin-top:20px;
+}
+.filter-container{
+	border: 1px solid #ddd;
+    padding: 10px 15px 5px;
+}
+.filter-heading{
+	color:blue;
+	margin-top:10px;
+}
+.margintop10{margin-top:10px;}
+.product_box{
+	padding-top:10px;
+	text-align:center;
+}
+.brand {
+    padding: 0 0 0 15px;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 51px;
+	color:#fff;
+}
+.brand span{
+	color:#47BBEB;
+}

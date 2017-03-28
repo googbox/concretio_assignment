@@ -1,0 +1,12 @@
+Step 1: Database Creation
+SQL file location :  SQL/db_spyprice_products.sql
+Import this file to your database.
+
+Step 2: Database Configuration
+Configuration file location : models/Connection.php
+Change private variable with $host as your server/host,  $username as username of your database, $password as db password
+$database as the db name you just created
+
+Step3: Copy this folder to your server if localhost then in WWW (Incase of wamp) / htdocs(Incase of xamp) folder. and open server/foldername
+
+Step: Enjoy !
