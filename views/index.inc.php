@@ -20,8 +20,8 @@
 		<?php if ($total > 0) {
 			while ($row = $products_list->fetch_assoc()) {?>
 				<div class="col-md-3 product_box">
-				<div><a href="product.php?prod_id=<?php echo $row["product_id"]?>"><img src="<?php echo $row["product_image"]?>" width="100%" alt="Image Missing : <?php echo $row["product_name"] ?>"><a></div>
-				<div> <a href="product.php?prod_id=<?php echo $row["product_id"]?>"><?php echo $row["product_name"] ?></a></div>
+				<div><a href="index.php?prod_id=<?php echo $row["product_id"]?>"><img src="<?php echo $row["product_image"]?>" width="100%" alt="Image Missing : <?php echo $row["product_name"] ?>"><a></div>
+				<div> <a href="index.php?prod_id=<?php echo $row["product_id"]?>"><?php echo $row["product_name"] ?></a></div>
 				<div> £<?php echo $row["product_price"]?></div>
 				</div>
 			<?php }

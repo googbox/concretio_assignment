@@ -7,25 +7,29 @@ class Connection {
 	private $password = "";
 	private $database = "db_spyprice_products";
 	protected $con;
+	private static $instance;
 	//Construct which connects to database once object created of this/extended class
-	public function __construct(){
-		$this->con = $this->connect();
+	public static function createInstance(){
+		if(!self::$instance){
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
-	public function connect(){
+	public function __construct	(){
 		//Database connection
-		$mysqli = new mysqli($this->host, $this->username, $this->password, $this->database);
-		if ($mysqli->connect_errno) {
+		$this->con = new mysqli($this->host, $this->username, $this->password, $this->database);
+		if ($this->con->connect_errno) {
 			printf("Connect failed: %s\n", $mysqli->connect_error);
 			exit();
-		}else{
-			return $mysqli;
 		}
-		
 	}
-	public function __destruct(){
-		//Closing connection
-		mysqli_close($this->con);
-	}	
+	public function connect(){
+		return $this->con;
+	}
+	// Magic method clone is empty to prevent duplication of connection
+	private function __clone() { }
+	
+		
 }
 
 

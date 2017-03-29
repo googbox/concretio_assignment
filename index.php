@@ -1,4 +1,4 @@
-<?php include_once("controllers/index_logic.php");?>
+<?php include_once("route.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 	<?php include_once("includes/lib.inc.php");?>
@@ -14,7 +14,7 @@
 				<!-- Sidebar/Filter Section -->
 				<?php include_once("includes/sidebar.inc.php"); ?>
 				<!-- Products List with/without filters  Section -->
-				<?php include_once("views/index.inc.php"); ?>
+				<?php include_once("views/".$route_include.".inc.php"); ?>
 			</div>
 		</div>
 		<br>

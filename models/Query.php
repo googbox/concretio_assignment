@@ -2,10 +2,14 @@
 //Class for basic Queries and Execution of them
 //This class extends Connection so when extended and on object creation it will call Connection class constructor and create db connection
 //Author : Ankita Gupta
-class Query extends Connection{
+class Query{
 	protected static $model;
 	protected $con;
 	
+	public function __construct(){
+		echo "im here";
+		die;
+	}
 	// BASIC CRUD Methods for given table 
 	public function read(){
 		//Selecting all data from static::$model => Late Static Binding

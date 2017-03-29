@@ -1,23 +1,29 @@
 <?php
 //Controller for Products page functionality 
 //Author : Ankita Gupta
-//Autoload Function which loads classes when needed
-function __autoload($class){
-	include_once("models/$class.php");
-}
-//Object which consist db connection
-$products = new Products();
+
 $product_specs = new Specifications();
-$product = [];
+$products = new Products();
+$product = array();
 
 //Fetching all Features, Stores, Brands and categories for filters listout
-$features_list = $product_specs->readFeatures();
-$stores_list = $product_specs->readStores();
-$brands_list = $products->readBrands();
-$categories_list = $products->readCategories();
+$features_listQ = $product_specs->readFeatures();
+$features_list = $mysqli->query($features_listQ);
+$stores_listQ = $product_specs->readStores();
+$stores_list = $mysqli->query($stores_listQ);
+
+$brands_listQ = $products->readBrands();
+$brands_list = $mysqli->query($brands_listQ);
+$categories_listQ = $products->readCategories();
+$categories_list = $mysqli->query($categories_listQ);
 
 //Fetching all Products Description its features and stores to show
-$product = $products->readProductDescription($_GET["prod_id"]);
-$features = $product_specs->readFeaturesByProduct($_GET["prod_id"]);
-$stores = $product_specs->readStoresByProduct($_GET["prod_id"]);
+$productQ = $products->readProductDescription($_GET["prod_id"]);
+$result = $mysqli->query($productQ);
+$product = $result->fetch_assoc();
+
+$featuresQ = $product_specs->readFeaturesByProduct($_GET["prod_id"]);
+$features = $mysqli->query($featuresQ);
+$storesQ = $product_specs->readStoresByProduct($_GET["prod_id"]);
+$stores = $mysqli->query($storesQ);
 ?>

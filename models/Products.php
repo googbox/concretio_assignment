@@ -1,17 +1,15 @@
 <?php
 //Class for tbl_products table/model
 //Author : Ankita Gupta
-class Products extends Query{
+class Products{
 	public static $model = "tbl_products";
 	public static $pivot = "tbl_spec_type_values";
 	
 	public function readBrands(){//Return all different brands from model
-		$query = "SELECT distinct product_brand FROM " . self::$model . " GROUP BY product_brand";
-		return $this->execute($query);
+		return $query = "SELECT distinct product_brand FROM " . self::$model . " GROUP BY product_brand";
 	}
 	public function readCategories(){//Return all categoris from model
-		$query = "SELECT distinct product_category FROM " . self::$model . " GROUP BY product_category ORDER BY product_category";
-		return $this->execute($query);
+		return $query = "SELECT distinct product_category FROM " . self::$model . " GROUP BY product_category ORDER BY product_category";
 	}
 	//Function which builds Query for Products
 	public function buildProductQuery($category,$rating,$brands,$stores,$features, $minrange, $maxrange){
@@ -66,17 +64,13 @@ class Products extends Query{
 		//Building Query
 		//Select
 		$query = "SELECT count(A.product_id) as count from " . self::$model . " AS A ";
-		$query .= $this->buildProductQuery($category,$rating,$brands,$stores,$features, $minrange, $maxrange);
-		$count_rows = $this->execute($query);
-		$c = $count_rows->fetch_assoc();
-		return $c["count"];
+		return $query .= $this->buildProductQuery($category,$rating,$brands,$stores,$features, $minrange, $maxrange);
 	}	
 	public function readProducts($category,$rating,$brands,$stores,$features, $minrange, $maxrange, $page, $limit){//Method returns all products
 		//Building Query - Select
 		$query = "SELECT DISTINCT A.product_id, A.product_name, A.product_price, A.product_image, A.created_on from " . self::$model . " AS A ";
 		$query .= $this->buildProductQuery($category,$rating,$brands,$stores,$features, $minrange, $maxrange);
-		$query .= " GROUP BY A.product_id LIMIT $page, $limit";
-		return $this->execute($query);
+		return $query .= " GROUP BY A.product_id LIMIT $page, $limit";
 	}
 	//Building Search Query
 	public function searchQuery($search){
@@ -93,22 +87,16 @@ class Products extends Query{
 	//Method - Global Search - Returns all Matched products with $search parameters
 	public function readSearchProducts($search, $page, $limit){
 		$query = $this->searchQuery($search);
-		$query .= " LIMIT $page, $limit";
-		return $this->execute($query);
+		return $query .= " LIMIT $page, $limit";
 	}
 	//Method - Global Search - Returns count of Matched products with $search parameters
 	public function buildSearchProductsQuery($search){
-		$query = $this->searchQuery($search);
-		$count_rows = $this->execute($query);
-		$c = mysqli_num_rows($count_rows);
-		return $c;
+		return $query = $this->searchQuery($search);
 	}
 	//Return all products with ID
 	public function readProductDescription($id){
 		if(isset($id) && $id > 0){
-			$query = "select * from ".self::$model." where product_id = ".$id." limit 1;";
-			$result = $this->execute($query);
-			return $row = $result->fetch_assoc();
+			return $query = "select * from ".self::$model." where product_id = ".$id." limit 1;";
 		}
 	}
 }

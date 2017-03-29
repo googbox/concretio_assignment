@@ -1,15 +1,12 @@
 <?php
 //Controller for Index page Functionality
 //Author : Ankita Gupta
-//Autoload Function which loads classes when needed
-function __autoload($class){
-	include_once("models/$class.php");
-}
+
 //Declaration of valiation
 $query_category = "";
 $query_brands = "All";
 $query_stores = "All";
-$query_features = [];
+$query_features = array(); // since $query_features = [] this initialization is not available in 5.3
 $query_rating = "";
 $minrange = "";
 $maxrange = "";
@@ -18,10 +15,18 @@ $maxrange = "";
 $products = new Products();
 $product_specs = new Specifications();
 $pagination = new Pagination();
-$features_list = $product_specs->readFeatures();
-$stores_list = $product_specs->readStores();
-$brands_list = $products->readBrands();
-$categories_list = $products->readCategories();
+
+$features_listQ = $product_specs->readFeatures();
+$features_list = $mysqli->query($features_listQ);
+
+$stores_listQ = $product_specs->readStores();
+$stores_list = $mysqli->query($stores_listQ);
+
+$brands_listQ = $products->readBrands();
+$brands_list = $mysqli->query($brands_listQ);
+
+$categories_listQ = $products->readCategories();
+$categories_list = $mysqli->query($categories_listQ);
 
 //Pagination
 $limit=4;$page=1;
@@ -31,8 +36,13 @@ if(isset($_GET["p"]) && $_GET["p"] != ""){$page = $_GET["p"];}
 $start_from = ($page-1) * $limit; 
 if(isset($_GET["search"]) && trim($_GET["search"] != "")){
 	//Global Search Method calling
-	$total = $products->buildSearchProductsQuery($_GET["search"]);
-	$products_list = $products->readSearchProducts($_GET["search"], $start_from, $limit);
+	$total_result = $products->buildSearchProductsQuery($_GET["search"]);
+	$count_rows = $mysqli->query($total_result);
+	$total= mysqli_num_rows($count_rows);
+		
+	$products_listQ = $products->readSearchProducts($_GET["search"], $start_from, $limit);
+	$products_list = $mysqli->query($products_listQ);
+	
 }else{
 	//Initialization of variables
 	if(isset($_GET["category"]) && $_GET["category"] != ""){
@@ -59,9 +69,14 @@ if(isset($_GET["search"]) && trim($_GET["search"] != "")){
 		}
 	}
 	//finding count for pagination
-	$total = $products->buildReadProductQuery($query_category, $query_rating, $query_brands, $query_stores, $query_features, $minrange, $maxrange);
+	$total_product_query = $products->buildReadProductQuery($query_category, $query_rating, $query_brands, $query_stores, $query_features, $minrange, $maxrange);
+	$count_rows = $mysqli->query($total_product_query);
+	$total_row = $count_rows->fetch_assoc();
+	$total = $total_row["count"];
+	
 	//fetching all products
-	$products_list = $products->readProducts($query_category, $query_rating, $query_brands, $query_stores, $query_features, $minrange, $maxrange, $start_from, $limit);
+	$products_listQ = $products->readProducts($query_category, $query_rating, $query_brands, $query_stores, $query_features, $minrange, $maxrange, $start_from, $limit);
+	$products_list = $mysqli->query($products_listQ);
 }
 $num_page=ceil($total/$limit);
 //Generating Pagination link
