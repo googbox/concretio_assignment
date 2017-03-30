@@ -1,4 +1,7 @@
-<?php include_once("route.php"); ?>
+<?php 
+error_reporting(0);
+include_once("route.php"); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<?php include_once("includes/lib.inc.php");?>

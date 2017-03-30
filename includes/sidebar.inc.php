@@ -80,10 +80,12 @@
 				<div>
 				Minimun Range<br>
 				<span><input type="range" id="minrange" value="<?php if(isset($_GET["minrange"]) && $_GET["minrange"] != "")echo $_GET["minrange"]; else echo "10";?>" min="10" max="1000" step="5" /></span>
-				<span> <input type="text" placeholder="10" id="minrangeval" name="minrange" value="<?php if(isset($_GET["minrange"]) && $_GET["minrange"] != "")echo $_GET["minrange"]; else echo "";?>" style="width:50px"></span><br>
+				<span> <input type="text" disabled placeholder="10" id="minrangeval1" name="minrange1" value="<?php if(isset($_GET["minrange"]) && $_GET["minrange"] != "")echo $_GET["minrange"]; else echo "";?>" style="width:50px"></span><br>
+				<span> <input type="hidden"  placeholder="10" id="minrangeval" name="minrange" value="<?php if(isset($_GET["minrange"]) && $_GET["minrange"] != "")echo $_GET["minrange"]; else echo "";?>" style="width:50px"></span><br>
 				Maximum Range
 				<span><input type="range" id="maxrange" value="<?php if(isset($_GET["maxrange"]) && $_GET["maxrange"] != "")echo $_GET["maxrange"]; else echo "1000";?>" min="10" max="1000" step="5" /> </span>
-				<span><input type="text" id="maxrangeval" placeholder="1000" name="maxrange" <input type="range" id="maxrange" value="<?php if(isset($_GET["minrange"]) && $_GET["maxrange"] != "")echo $_GET["maxrange"]; else echo "";?>" style="width:50px"></span>
+				<span><input type="text" disabled id="maxrangeval1" placeholder="1000" name="maxrange1" value="<?php if(isset($_GET["minrange"]) && $_GET["maxrange"] != "")echo $_GET["maxrange"]; else echo "";?>" style="width:50px"></span>
+				<span><input type="hidden"  id="maxrangeval" placeholder="1000" name="maxrange" value="<?php if(isset($_GET["minrange"]) && $_GET["maxrange"] != "")echo $_GET["maxrange"]; else echo "";?>" style="width:50px"></span>
 				</div>
 			</div>	
 

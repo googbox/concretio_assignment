@@ -18,11 +18,11 @@
 		</div>
 		<div class="col-md-12 row">
 		<?php if ($total > 0) {
-			while ($row = $products_list->fetch_assoc()) {?>
+			while ($products_list->fetch()) {?>
 				<div class="col-md-3 product_box">
-				<div><a href="index.php?prod_id=<?php echo $row["product_id"]?>"><img src="<?php echo $row["product_image"]?>" width="100%" alt="Image Missing : <?php echo $row["product_name"] ?>"><a></div>
-				<div> <a href="index.php?prod_id=<?php echo $row["product_id"]?>"><?php echo $row["product_name"] ?></a></div>
-				<div> £<?php echo $row["product_price"]?></div>
+				<div><a href="index.php?prod_id=<?php echo $id?>"><img src="<?php echo $image?>" width="100%" alt="Image Missing : <?php echo $name; ?>"><a></div>
+				<div> <a href="index.php?prod_id=<?php echo $id?>"><?php echo $name; ?></a></div>
+				<div> £<?php echo $price?></div>
 				</div>
 			<?php }
 			

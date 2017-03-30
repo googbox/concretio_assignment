@@ -68,20 +68,19 @@ class Products{
 	}	
 	public function readProducts($category,$rating,$brands,$stores,$features, $minrange, $maxrange, $page, $limit){//Method returns all products
 		//Building Query - Select
-		$query = "SELECT DISTINCT A.product_id, A.product_name, A.product_price, A.product_image, A.created_on from " . self::$model . " AS A ";
+		$query = "SELECT DISTINCT A.product_id, A.product_brand, A.product_category, A.product_name, A.product_image, A.product_price from " . self::$model . " AS A ";
 		$query .= $this->buildProductQuery($category,$rating,$brands,$stores,$features, $minrange, $maxrange);
 		return $query .= " GROUP BY A.product_id LIMIT $page, $limit";
 	}
 	//Building Search Query
 	public function searchQuery($search){
-		return $query = "SELECT DISTINCT A.product_id, A.product_brand, A.product_category, A.product_name, A.product_description, A.product_image, A.product_price 
+		return $query = "SELECT DISTINCT A.product_id, A.product_brand, A.product_category, A.product_name, A.product_image, A.product_price 
 					FROM " . self::$model . " A LEFT JOIN " . self::$pivot . " B ON A.product_id = B.product_id 
 					WHERE(
-						MATCH(A.product_name) AGAINST ('$search') OR 
-						MATCH(A.product_category) AGAINST ('$search') OR
-						MATCH(A.product_brand) AGAINST ('$search') OR
-						MATCH(A.product_description) AGAINST ('$search') OR 
-						MATCH(B.speci_value) AGAINST ('$search')
+						MATCH(A.product_name) AGAINST (?) OR 
+						MATCH(A.product_category) AGAINST (?) OR
+						MATCH(A.product_brand) AGAINST (?) OR
+						MATCH(B.speci_value) AGAINST (?)
 						)";
 	}
 	//Method - Global Search - Returns all Matched products with $search parameters

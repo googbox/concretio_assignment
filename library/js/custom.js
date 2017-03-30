@@ -3,9 +3,11 @@ $(document).ready(function(){ // Starts when Document is done with loading all t
 		// Price range slider 
 		$("#minrange").on('change',function(){
 			$("#minrangeval").val($("#minrange").val());
+			$("#minrangeval1").val($("#minrange").val());
 		});
 		$("#maxrange").on('change',function(){
 			$("#maxrangeval").val($("#maxrange").val());
+			$("#maxrangeval1").val($("#maxrange").val());
 		});
 		
 		//Submit forms on every filter element change event

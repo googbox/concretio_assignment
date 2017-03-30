@@ -35,13 +35,20 @@ if(isset($_GET["p"]) && $_GET["p"] != ""){$page = $_GET["p"];}
 }
 $start_from = ($page-1) * $limit; 
 if(isset($_GET["search"]) && trim($_GET["search"] != "")){
+	
 	//Global Search Method calling
 	$total_result = $products->buildSearchProductsQuery($_GET["search"]);
-	$count_rows = $mysqli->query($total_result);
-	$total= mysqli_num_rows($count_rows);
-		
+	$totalR = $mysqli->prepare($total_result);
+	$totalR->bind_param("sssss",$_GET["search"],$_GET["search"],$_GET["search"],$_GET["search"],$_GET["search"]);
+	$totalR->execute();
+	$totalR->store_result();
+	$total = $totalR->num_rows;
+	
 	$products_listQ = $products->readSearchProducts($_GET["search"], $start_from, $limit);
-	$products_list = $mysqli->query($products_listQ);
+	$products_list = $mysqli->prepare($products_listQ);
+	$products_list->bind_param("sssss",$_GET["search"],$_GET["search"],$_GET["search"],$_GET["search"],$_GET["search"]);
+	$products_list->execute();
+	$products_list->bind_result($id, $brand, $category, $name, $image, $price);
 	
 }else{
 	//Initialization of variables
@@ -70,13 +77,17 @@ if(isset($_GET["search"]) && trim($_GET["search"] != "")){
 	}
 	//finding count for pagination
 	$total_product_query = $products->buildReadProductQuery($query_category, $query_rating, $query_brands, $query_stores, $query_features, $minrange, $maxrange);
-	$count_rows = $mysqli->query($total_product_query);
-	$total_row = $count_rows->fetch_assoc();
-	$total = $total_row["count"];
+	$count_rows = $mysqli->prepare($total_product_query);
+	$count_rows->execute();
+	$count_rows->bind_result($count);
+	while($count_rows->fetch()){$total = $count;}
 	
 	//fetching all products
 	$products_listQ = $products->readProducts($query_category, $query_rating, $query_brands, $query_stores, $query_features, $minrange, $maxrange, $start_from, $limit);
-	$products_list = $mysqli->query($products_listQ);
+	$products_list = $mysqli->prepare($products_listQ);
+	$products_list->execute();
+	$products_list->bind_result($id, $brand, $category, $name, $image, $price);
+
 }
 $num_page=ceil($total/$limit);
 //Generating Pagination link
